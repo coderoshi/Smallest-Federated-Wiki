@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'pathname'
 require 'bundler'
+require 'mongo'
 Bundler.require
 
 class Controller < Sinatra::Base
@@ -11,18 +12,29 @@ class Controller < Sinatra::Base
   set :public, "#{APP_ROOT}/client"
   set :views , "#{APP_ROOT}/server/views"  
   set :haml, :format => :html5
-
+  
+  # mongo connection
+  def self.db
+    @@conn ||= Mongo::Connection.new
+    @@db ||= @@conn['wiki']
+    @@coll ||= @@db['wiki']
+  end
+  
   helpers do
     def gen_id
       (0..15).collect{(rand*16).to_i.to_s(16)}.join
     end
     def get_page name
-      path = File.join(APP_ROOT, "data/pages/#{name}")
-      return put_page name, {'title'=>name,'story'=>[{'type'=>'factory', 'id'=>gen_id}]} unless File.file? path
-      File.open(path, 'r') { |file| JSON.parse(file.read) }
+      val = Controller.db.find({:title => name}).first
+      put_page name, {'title'=>name, 'story'=>[{'type'=>'factory', 'id'=>gen_id}]} unless val
+      val
+      # path = File.join(APP_ROOT, "data/pages/#{name}")
+      # return put_page name, {'title'=>name,'story'=>[{'type'=>'factory', 'id'=>gen_id}]} unless File.file? path
+      # File.open(path, 'r') { |file| JSON.parse(file.read) }
     end
     def put_page name, page
-      File.open(File.join(APP_ROOT, "data/pages/#{name}"), 'w') { |file| file.write(JSON.generate(page)) }
+      Controller.db.save(page.merge({'_id' => name}))
+      # File.open(File.join(APP_ROOT, "data/pages/#{name}"), 'w') { |file| file.write(JSON.generate(page)) }
       return page
     end
     def resolve_links string

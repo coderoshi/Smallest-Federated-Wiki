@@ -9,6 +9,7 @@ gem "thin"
 group :development do
   gem 'ruby-debug', :require => 'ruby-debug', :platform => :mri_18
   gem 'ruby-debug19', :require => 'ruby-debug19', :platform => :mri_19
+  gem 'mongo'
 end
 
 group :test do
