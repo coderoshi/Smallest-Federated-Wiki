@@ -1,8 +1,8 @@
 .DS_Store
 *.swp
-.sass-cache/*
+.sass-cache
 .rvmrc
-client/favicon.png
-data/pages/welcome-visitors
-client/js
-/data/status/local-identity
+/data
+/spec/data
+/client/js
+/server/express/node_modules

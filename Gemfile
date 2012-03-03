@@ -5,6 +5,10 @@ gem "haml"
 gem "sass"
 gem "json"
 gem "thin"
+gem "RubyInline"
+gem "png"
+gem "rest-client"
+gem "ruby-openid"
 
 group :development do
   gem 'ruby-debug', :require => 'ruby-debug', :platform => :mri_18
@@ -18,4 +22,7 @@ group :test do
   gem 'rspec-core'         , '2.4.0'
   gem 'rspec-expectations' , '2.4.0'
   gem 'rspec-mocks'        , '2.4.0'
+  gem 'capybara'
+  gem 'launchy'
+  gem 'selenium-webdriver', '2.19.0'
 end
