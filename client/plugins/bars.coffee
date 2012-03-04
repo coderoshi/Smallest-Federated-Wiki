@@ -2,7 +2,8 @@ window.plugins.bars =
   bind: (div, item) ->
   emit: (div, item) ->
     wiki.getScript '/js/d3/d3.js', ->
-      data = (x[1]/100.0 for x in wiki.getData() by 5)
+      series = wiki.getData()[0]
+      data = (x[1]/100.0 for x in series by 5)
       w = 380
       h = 230
       x = d3.scale.linear().domain([0, 1]).range([0, w])

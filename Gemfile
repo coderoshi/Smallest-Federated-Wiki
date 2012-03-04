@@ -9,6 +9,8 @@ gem "RubyInline"
 gem "png"
 gem "rest-client"
 gem "ruby-openid"
+gem "eventmachine"
+gem "daemons"
 
 group :development do
   gem 'ruby-debug', :require => 'ruby-debug', :platform => :mri_18

@@ -128,7 +128,12 @@ $ ->
     $(element).data("item") or JSON.parse($(element).data('staticItem')) if $(element).length > 0
 
   wiki.getData = ->
-    $('.chart,.data').last().data('item').data
+    #$('.chart,.data').last().data('item').data
+    data = []
+    $('.chart,.data').each((x,i)->
+      data.push($(i).data('item').data)
+    )
+    data
 
   scripts = {}
   wiki.getScript = (url, callback = () ->) ->

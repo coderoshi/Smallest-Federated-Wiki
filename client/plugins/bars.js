@@ -4,13 +4,13 @@
     bind: function(div, item) {},
     emit: function(div, item) {
       return wiki.getScript('/js/d3/d3.js', function() {
-        var bars, data, h, rules, vis, w, x, y;
+        var bars, data, h, rules, series, vis, w, x, y;
+        series = wiki.getData()[0];
         data = (function() {
-          var _i, _len, _ref, _results, _step;
-          _ref = wiki.getData();
+          var _i, _len, _results, _step;
           _results = [];
-          for (_i = 0, _len = _ref.length, _step = 5; _i < _len; _i += _step) {
-            x = _ref[_i];
+          for (_i = 0, _len = series.length, _step = 5; _i < _len; _i += _step) {
+            x = series[_i];
             _results.push(x[1] / 100.0);
           }
           return _results;
